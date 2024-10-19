@@ -33,7 +33,7 @@ const ForgotPassword = () => {
       setInfo({ email: "", password: "" });
     } catch (err) {
       // console.log(err);
-      toast.error(res.data.message);
+      toast.error("Something went wrong");
     }
   };
 

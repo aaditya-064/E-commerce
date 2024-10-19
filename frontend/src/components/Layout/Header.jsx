@@ -134,7 +134,9 @@ const Header = () => {
                       <ul className="py-2 text-sm text-gray-700 dark:text-gray-400">
                         <li>
                           <Link
-                            to="/dashboard"
+                            to={`/dashboard/${
+                              auth?.user?.role === 1 ? "admin" : "user"
+                            }`}
                             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Dashboard
@@ -182,57 +184,12 @@ const Header = () => {
             Category
           </Link>
 
-          {/* Mobile Dropdown */}
-          <div className="relative">
-            <button
-              onClick={toggleDropdown}
-              className="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-            >
-              User Menu
-            </button>
-            {isDropdownOpen && (
-              <div
-                className="mt-2 w-full rounded-md bg-white shadow-lg dark:bg-gray-700"
-                onClick={toggleDropdown}
-              >
-                <ul className="py-2 text-sm text-gray-700 dark:text-gray-400">
-                  <li>
-                    <Link
-                      to="/dashboard"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/settings"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Settings
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/earnings"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Earnings
-                    </Link>
-                  </li>
-                </ul>
-                <div className="py-1">
-                  <Link
-                    to="/logout"
-                    onClick={handleLogout}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Sign out
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
+          <Link
+            to="/cart"
+            className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >
+            Cart (0)
+          </Link>
 
           {!auth.user ? (
             <>
@@ -250,21 +207,44 @@ const Header = () => {
               </Link>
             </>
           ) : (
-            <Link
-              to="/logout"
-              onClick={handleLogout}
-              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-            >
-              Logout
-            </Link>
+            <div className="relative">
+              <button
+                onClick={toggleDropdown}
+                className="flex items-center rounded-full px-3 py-2 text-md bg-gray-500 text-white hover:opacity-60 transition-all font-medium  hover:text-white"
+              >
+                <p>{auth?.user?.name.toUpperCase()} </p>
+                <img src="/images/down-arrow.png" className="w-5 mt-1" />
+              </button>
+              {isDropdownOpen && (
+                <div
+                  className="absolute right-0 mt-2 w-44 rounded-md bg-white shadow-lg dark:bg-gray-700"
+                  onClick={toggleDropdown} // Close the dropdown when a link is clicked
+                >
+                  <ul className="py-2 text-sm text-gray-700 dark:text-gray-400">
+                    <li>
+                      <Link
+                        to={`/dashboard/${
+                          auth?.user?.role === 1 ? "admin" : "user"
+                        }`}
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        Dashboard
+                      </Link>
+                    </li>
+                  </ul>
+                  <div className="py-1">
+                    <Link
+                      to="/login"
+                      onClick={handleLogout}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    >
+                      Log out
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
-
-          <Link
-            to="/cart"
-            className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-          >
-            Cart (0)
-          </Link>
         </div>
       </div>
     </nav>

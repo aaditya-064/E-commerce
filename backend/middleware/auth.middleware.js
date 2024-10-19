@@ -61,7 +61,8 @@ export const verifyRegister = async (req, res, next) => {
 
 export const requireSignIn = async (req, res, next) => {
   try {
-    JWT.verify(req.headers.authorization, config.JWT_SECRET);
+    const decode = JWT.verify(req.headers.authorization, config.JWT_SECRET);
+    req.user = decode;
     next();
   } catch (err) {
     console.log(err);

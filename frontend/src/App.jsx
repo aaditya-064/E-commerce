@@ -6,9 +6,16 @@ import PageNotFound from "./pages/PageNotFound";
 import Policy from "./pages/Policy";
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
-import Dashboard from "./pages/user/Dashboard";
+import UserDashboard from "./pages/User/UserDashboard";
 import { PrivateRoute } from "./components/Routes/Private";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
+import { AdminRoute } from "./components/Routes/AdminRoute";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import CreateCategory from "./pages/Admin/CreateCategory";
+import CreateProduct from "./pages/Admin/CreateProduct";
+import Users from "./pages/Admin/Users";
+import Order from "./pages/User/Order";
+import Profile from "./pages/User/Profile";
 
 function App() {
   return (
@@ -17,7 +24,15 @@ function App() {
         <Route path={"/"} Component={HomePage} />
         <Route path={"/about"} Component={About} />
         <Route path="/dashboard" Component={PrivateRoute}>
-          <Route path={""} Component={Dashboard} />
+          <Route path={"user"} Component={UserDashboard} />
+          <Route path={"user/orders"} Component={Order} />
+          <Route path={"user/profile"} Component={Profile} />
+        </Route>
+        <Route path="/dashboard" Component={AdminRoute}>
+          <Route path={"admin"} Component={AdminDashboard} />
+          <Route path={"admin/create-category"} Component={CreateCategory} />
+          <Route path={"admin/create-product"} Component={CreateProduct} />
+          <Route path={"admin/users"} Component={Users} />
         </Route>
         <Route path={"/contact"} Component={Contact} />
         <Route path={"/forgot-password"} Component={ForgotPassword} />
